@@ -114,7 +114,7 @@ export default function Career() {
           Build Your Future with us 🚀
         </motion.h1>
         <p className="text-l max-w-2xl mx-auto">
-          At <span className="font-semibold">Omnireach</span>, we connect talented professionals with leading organizations across industries. Whether you’re looking for your first job or your next big move, we’re here to help you succeed.
+          At <span className="font-semibold">Omnireach Technology</span>, we connect talented professionals with leading organizations across industries. Whether you’re looking for your first job or your next big move, we’re here to help you succeed.
         </p>
       </section>
 
