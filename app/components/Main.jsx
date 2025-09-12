@@ -72,7 +72,7 @@ export default function Main({ mode }) {
                   Welcome to OmniReach
                 </h1>
                 <p className="text-l mt-2">
-                  At OmniReach Technology, we offer full-time and part-time contract services for a wide range of industries.
+                  At OmniReach Technology, we offer Contract, Full-Time and Part-Time services for a wide range of industries.
                 </p>
 
                 {/* Social Icons */}
