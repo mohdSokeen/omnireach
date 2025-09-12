@@ -9,8 +9,8 @@ const lottieStyle = {
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  left: "50%",
-  transform: "translateX(-50%)",
+  // left: "50%",
+  // transform: "translateX(-50%)",
 };
 
 const labels = [
@@ -36,7 +36,7 @@ const labels = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center mx-auto px-[8%] py-22 text-center" id="home">
+    <div className="min-h-screen flex flex-col justify-center items-center mx-auto px-[8%] py-6 text-center" id="home">
       {/* why choose us */}
       <div className="flex flex-col text-center">
         <h2 className="text-3xl font-bold">What Makes Us Different</h2>
@@ -61,12 +61,12 @@ export default function Home() {
           src="/images/home.lottie"
           loop
           autoplay
-          className="w-full h-full object-cover"
+          style={lottieStyle}
         />
       </div>
 
 
-      <div className="w-full mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="w-full mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white shadow-md rounded-2xl p-8 text-left hover:shadow-lg">
           <h2 className="text-2xl font-bold mb-4" style={{ color: '#F7931E' }}>Mission</h2>
           <p className="leading-relaxed text-m" style={{ color: '#1D2452' }}>

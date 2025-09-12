@@ -25,11 +25,7 @@ export default function Main({ mode }) {
 
   return (
     <div className="w-full">
-      <div
-        className="relative flex flex-row justify-start items-center w-full px-[15%] min-h-[680px] bg-center bg-cover bg-fixed 
-                   max-md:block max-md:px-0 max-md:pt-[150px]"
-        style={{ backgroundImage: "none" }}
-      >
+      <div className="relative flex flex-row justify-start items-center w-full px-[15%] min-h-[680px] bg-center bg-cover bg-fixed max-md:block max-md:px-0 max-md:pt-[160px]" style={{ backgroundImage: "none" }}>
         {/* Background with animation */}
         <AnimatePresence mode="wait">
           {!showText && (
@@ -75,9 +71,8 @@ export default function Main({ mode }) {
                 <h1 className="text-[clamp(2rem,6vw,4rem)] font-bold leading-tight text-white" style={{ color: '#F7931E' }}>
                   Welcome to OmniReach
                 </h1>
-                <p className="text-lg mt-2 text-white/90">
-                  At OmniReach Technology, we offer contract-staffing services
-                  for a wide range of industries.
+                <p className="text-l mt-2">
+                  At OmniReach Technology, we offer full-time and part-time contract services for a wide range of industries.
                 </p>
 
                 {/* Social Icons */}

@@ -88,7 +88,9 @@ export default function Navigation({ parentToChild, modeChange }) {
   const scrollToSection = (section) => {
     const element = document.getElementById(section);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      const yOffset = -64; // navbar height ke hisaab se adjust karo
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
     setActiveSection(section);
     setTimeout(() => {

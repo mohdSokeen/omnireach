@@ -100,11 +100,8 @@ export default function Contact() {
   };
 
   return (
-    <div
-      id="contact"
-      className="min-h-screen flex flex-col justify-center items-center mx-auto px-[10%] py-22 text-center"
-    >
-      <h2 className="text-3xl font-bold mb-[50px]">Request a call back</h2>
+    <div id="contact" className="h-full flex flex-col justify-center items-center mx-auto px-[10%] py-6 text-center">
+      <h2 className="text-3xl font-bold mb-6">Request a call back</h2>
       <p className="text-gray-200" style={{ color: '#F7931E' }}>
         Send us an email and we’ll get in touch shortly, or phone between 7:00 PM and 04:00 AM (IST) Monday to Friday.
         <br/>we would be delighted to speak. 😊

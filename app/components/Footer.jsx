@@ -7,30 +7,34 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 export default function Footer() {
   return (
     <footer className="py-8">
+      <div className="mt-8">
+
+      </div>
       <div className="flex flex-col md:flex-row flex-wrap justify-between items-start max-w-[1200px] mx-auto px-5 gap-8">
         {/* Column 1: Logo */}
         <div className="flex-1 min-w-[200px] text-center md:text-left mt-[-35px]">
           <img
             src="/images/logo2.png"
             alt="MWBE Certification Logo"
-            className="mx-auto md:mx-0 max-w-full h-[150px] object-contain"
+            className="mx-auto md:mx-0 max-w-full h-[150px] object-contain !mr-60"
           />
         </div>
 
         {/* Column 2: Certification */}
-        <div className="flex-1 min-w-[200px] text-center md:text-left">
+        <div className="flex-1 min-w-[200px] flex justify-center">
           <p className="text-sm leading-relaxed">
-            Omnireach is a trusted consulting partner, bridging top talent with leading organizations 
+            Omnireach is a trusted consulting partner, bridging top talent with leading organizations
             through innovative staffing solutions, industry expertise, and a commitment to lasting career success.
           </p>
         </div>
 
         {/* Column 3: Contact */}
         <div className="flex-1 min-w-[200px] text-center md:text-left">
-          <h4 className="font-semibold" style={{ color: '#F7931E' }}>Contact Us</h4>
-          <p className="my-1 text-sm">
+          <h4 className="font-semibold !mr-25" style={{ color: '#F7931E' }}>Contact Us</h4>
+          <p className="my-1 text-sm !mr-22">
             <PhoneIcon className="!mr-2 !text-[20px]" />
-            {process.env.NEXT_PUBLIC_PHONE}</p>
+            {process.env.NEXT_PUBLIC_PHONE}
+          </p>
           <p className="my-1 text-sm">
             <EmailIcon className="!mr-2 !text-[20px]" />
             <a
@@ -40,7 +44,7 @@ export default function Footer() {
               {process.env.NEXT_PUBLIC_EMAIL}
             </a>
           </p>
-          <div className="flex gap-4 mt-3 justify-center md:justify-start">
+          <div className="flex gap-4 mt-3 !mr-30 justify-center md:justify-start">
             <a
               href={process.env.NEXT_PUBLIC_LINKEDIN}
               target="_blank"
@@ -62,9 +66,12 @@ export default function Footer() {
 
         {/* Column 4: Address & Map */}
         <div className="flex-1 min-w-[200px] text-center md:text-left">
-          <h4 className="font-semibold" style={{ color: '#F7931E' }}>Address</h4>
-          <p className="my-1 text-sm leading-tight">
-            <LocationOnIcon className="!mr-1 !text-[20px]" /> {process.env.NEXT_PUBLIC_ADDRESS}
+          <h4 className="font-semibold !mr-63" style={{ color: '#F7931E' }}>Address</h4>
+          <p className="my-1 text-sm !mr-35 whitespace-nowrap">
+            <LocationOnIcon className="!mr-1 !text-[20px] " /> {process.env.NEXT_PUBLIC_ADDRESS1}
+          </p>
+          <p className="my-1 text-sm !mr-30 md:whitespace-nowrap whitespace-normal">
+            <LocationOnIcon className="!mr-1 !text-[20px] " /> {process.env.NEXT_PUBLIC_ADDRESS2}
           </p>
           <div className="mt-3">
             <iframe
@@ -80,7 +87,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <p className="text-center mt-8 text-sm w-full">
+        <p className="text-center mt-6 text-sm w-full">
           &copy; {new Date().getFullYear()} <span className="font-semibold">Omnireach Technology</span>.
           All rights reserved.
         </p>

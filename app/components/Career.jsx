@@ -8,7 +8,6 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
-
 // Industry Icons
 import ComputerIcon from '@mui/icons-material/Computer';
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -16,7 +15,6 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-
 
 // Role Icons
 import CodeIcon from '@mui/icons-material/Code';
@@ -106,7 +104,7 @@ export default function Career() {
   return (
     <div id="career">
       {/* Hero Section */}
-      <section className="text-center py-22">
+      <section className="text-center py-6">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,13 +114,13 @@ export default function Career() {
           Build Your Future with us 🚀
         </motion.h1>
         <p className="text-l max-w-2xl mx-auto">
-          At <span className="font-semibold">US Staffing Co.</span>, we connect talented professionals with leading organizations across industries. Whether you’re looking for your first job or your next big move, we’re here to help you succeed.
+          At <span className="font-semibold">Omnireach</span>, we connect talented professionals with leading organizations across industries. Whether you’re looking for your first job or your next big move, we’re here to help you succeed.
         </p>
       </section>
 
       {/* Why Choose Us */}
-      <section className="max-w-6xl mx-auto px-6 -mt-10">
-        <h2 className="text-2xl font-bold text-center mb-10" style={{ color: "#F7931E" }}>Why Choose Us?</h2>
+      <section className="max-w-6xl mx-auto px-6">
+        <h2 className="text-2xl font-bold text-center mb-8" style={{ color: "#F7931E" }}>Why Choose Us?</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             "Access to exclusive job opportunities",
@@ -142,9 +140,9 @@ export default function Career() {
       </section>
 
       {/* Our Hiring Process */}
-      <section className="py-10 mt-10">
+      <section className="py-8 mt-5">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center mb-10" style={{ color: "#F7931E" }} >Our Hiring Process</h2>
+          <h2 className="text-2xl font-bold text-center mb-8" style={{ color: "#F7931E" }} >Our Hiring Process</h2>
           <div className="grid md:grid-cols-4 gap-6">
             {[
               { icon: SearchIcon, text: "We Understand Your Skills & Goals" },
@@ -157,8 +155,8 @@ export default function Career() {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white rounded-2xl shadow p-6 flex flex-col items-center"
               >
-                <step.icon className="text-[#1D2452] mb-4" style={{ fontSize: 35 }} />
-                <p className="text-center" style={{ color: "#1D2452" }}>{step.text}</p>
+                <step.icon className="mb-4" style={{ fontSize: 32 }} />
+                <p className="text-center font-medium" style={{ color: "#1D2452" }}>{step.text}</p>
               </motion.div>
             ))}
           </div>
@@ -166,7 +164,7 @@ export default function Career() {
       </section>
 
       {/* Industries & Domains */}
-      <section className="py-10" id="industries">
+      <section className="py-5" id="industries">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-center mb-10" style={{ color: "#F7931E" }}>
             Industries & Domains We Cover
@@ -233,7 +231,7 @@ export default function Career() {
       </section>
 
       {/* Join Talent Network */}
-      <section className="text-center py-10">
+      <section className="text-center py-8">
         <h2 className="text-2xl font-bold mb-6">Join Our Talent Network</h2>
         <p className="max-w-3xl mx-auto mb-6">
           Not seeing the right opportunity right now? Send us your resume anyway at <span className="font-semibold text-[#F7931E]">{process.env.NEXT_PUBLIC_EMAIL}</span>, We’ll keep you in mind for future roles that match your skills.

@@ -1,28 +1,20 @@
-// app\components\About.jsx
 "use client";
 import ImageSlider from "./ImageSlider";
 
 export default function About() {
   return (
-    <section
-      className="flex flex-col items-center px-6 sm:px-10 py-22"
-      id="about"
-    >
-      <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-6 text-center relative">
+    <section id="about" className="flex flex-col items-center px-6 sm:px-10 py-8">
+      <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-5 text-center">
         About Us
       </h2>
-      <h3
-        className="text-lg sm:text-xl font-semibold mb-6"
-        style={{ color: "#F7931E" }}
-      >
+      <h3 className="text-lg sm:text-xl font-semibold mb-4" style={{ color: "#F7931E" }}>
         We are OmniReach Technologies, and we are dedicated to offering reliable services.
       </h3>
 
-      {/* Layout: Text + Slider */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch max-w-5xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch max-w-5xl w-full">
         {/* Left Column - Text */}
-        <div className="text-base sm:text-lg leading-relaxed text-justify space-y-6 h-full">
-          <p className="mb-10 text-justify text-gray-700 text-sm sm:text-base">
+        <div className="text-base sm:text-l leading-relaxed text-justify space-y-6 h-full">
+          <p className="mb-10 text-sm sm:text-base">
             As the business world continues to grow and develop, new technologies are appearing to help keep up with demand.
             These technologies can change as rapidly as the rest of the business landscape, and it can sometimes feel hard to
             keep up with. Our IT services can help smooth the path between technology and business, helping to keep companies

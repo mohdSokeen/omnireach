@@ -128,9 +128,9 @@ button {
   color: #1D2452;
 }
 
-.light-mode .about-section {
+/* .light-mode .about-section {
   background-image: url("/images/office2.jpg");
-}
+} */
 
 .light-mode .about-section::before {
   content: "";

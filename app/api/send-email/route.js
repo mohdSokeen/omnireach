@@ -25,9 +25,7 @@ export async function POST(request) {
       tls: { rejectUnauthorized: false },
     });
 
-    // Strip "data:...;base64," prefix from base64
     const base64Data = resume.data.replace(/^data:.*;base64,/, "");
-
     const mailOptions = {
       from: `"Omnireach Contact Form" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_RECEIVER,
@@ -47,10 +45,10 @@ export async function POST(request) {
       `,
       attachments: [
         {
-          filename: resume.name,   // ✅ original filename
+          filename: resume.name,
           content: base64Data,
           encoding: "base64",
-          contentType: resume.type, // ✅ preserve MIME type
+          contentType: resume.type,
         },
       ],
     };
