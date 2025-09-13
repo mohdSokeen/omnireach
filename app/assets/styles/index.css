@@ -58,7 +58,7 @@ button {
 .navigation-bar-responsive span,
 .navigation-bar-responsive p {
   color: #1D2452;
-  font-family: "Lato", sans-serif;
+  font-family: var(--font-poppins), sans-serif !important;
 }
 
 .container {

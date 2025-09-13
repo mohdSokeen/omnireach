@@ -1,4 +1,3 @@
-// app\api\send-email\route.js
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 
@@ -6,7 +5,8 @@ export async function POST(request) {
   try {
     const { name, email, message, resume } = await request.json();
 
-    if (!name || !email || !message || !resume?.data || !resume?.name || !resume?.type) {
+    // ✅ Validate only name/email/message
+    if (!name || !email || !message) {
       return NextResponse.json(
         { success: false, message: "Missing required fields" },
         { status: 400 }
@@ -25,7 +25,6 @@ export async function POST(request) {
       tls: { rejectUnauthorized: false },
     });
 
-    const base64Data = resume.data.replace(/^data:.*;base64,/, "");
     const mailOptions = {
       from: `"Omnireach Contact Form" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_RECEIVER,
@@ -39,19 +38,24 @@ export async function POST(request) {
           <p style="white-space: pre-wrap;">${message}</p>
           <hr/>
           <p style="color: gray; font-size: 12px;">
-            Sent from Onmireach contact form.
+            Sent from Omnireach contact form.
           </p>
         </div>
       `,
-      attachments: [
+    };
+
+    // ✅ Attach resume only if uploaded
+    if (resume?.data && resume?.name && resume?.type) {
+      const base64Data = resume.data.replace(/^data:.*;base64,/, "");
+      mailOptions.attachments = [
         {
           filename: resume.name,
           content: base64Data,
           encoding: "base64",
           contentType: resume.type,
         },
-      ],
-    };
+      ];
+    }
 
     await transporter.sendMail(mailOptions);
 

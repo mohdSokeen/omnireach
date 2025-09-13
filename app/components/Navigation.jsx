@@ -17,7 +17,6 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import ListItemButton from "@mui/material/ListItemButton";
 
-const drawerWidth = 240;
 const navItems = [
   ["Home", "home"],
   ["Career", "career"],
@@ -57,7 +56,6 @@ export default function Navigation({ parentToChild, modeChange }) {
 
         setActiveSection(current);
 
-        // 👇 URL update on scroll
         const newUrl = `#${current}`;
         if (window.location.pathname !== newUrl) {
           window.history.pushState(null, "", newUrl);
@@ -84,12 +82,12 @@ export default function Navigation({ parentToChild, modeChange }) {
     }
   }, []);
 
-
   const scrollToSection = (section) => {
     const element = document.getElementById(section);
     if (element) {
-      const yOffset = -64; // navbar height ke hisaab se adjust karo
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const yOffset = -64;
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
     setActiveSection(section);
@@ -107,7 +105,7 @@ export default function Navigation({ parentToChild, modeChange }) {
       onClick={handleDrawerToggle}
       sx={{ textAlign: "center" }}
     >
-      <p className="mobile-menu-top">
+      <p className="mobile-menu-top flex items-start !gap-1 !p-5 !mr-12" style={{ color: "#F7931E"}}>
         <ListIcon />
         Menu
       </p>
@@ -118,11 +116,12 @@ export default function Navigation({ parentToChild, modeChange }) {
             <ListItemButton
               onClick={() => scrollToSection(id)}
               className="justify-center outline-none"
+              sx={{ py: 0.5 }}
             >
               <ListItemText
                 primary={label}
                 sx={{
-                  color: activeSection === id ? "#F7931E" : "", //
+                  color: activeSection === id ? "#F7931E" : "",
                 }}
               />
             </ListItemButton>
@@ -133,7 +132,7 @@ export default function Navigation({ parentToChild, modeChange }) {
             sx={{ justifyContent: "center" }}
             onClick={modeChange}
           >
-            {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
+            {/* {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />} */}
           </ListItemButton>
         </ListItem>
       </List>
@@ -146,28 +145,13 @@ export default function Navigation({ parentToChild, modeChange }) {
       <AppBar
         component="nav"
         id="navigation"
-        // elevation={0}
         className={`navbar-fixed-top${scrolled ? " scrolled" : ""}`}
-        sx={{
-          height: 64,
-          // boxShadow: "none",
-        }}
+        sx={{ height: 64 }}
       >
         <Toolbar
           className="navigation-bar"
           sx={{ minHeight: 64, height: 64 }}
         >
-          {/* Mobile menu icon */}
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-
           {/* Omnireach logo */}
           <img
             src="/images/logo.png"
@@ -212,6 +196,36 @@ export default function Navigation({ parentToChild, modeChange }) {
               {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
             </IconButton>
           </Box>
+
+          {/* Mobile view: toggle + menu icon */}
+          <Box
+            sx={{
+              display: { xs: "flex", sm: "none" },
+              marginLeft: "auto",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            {/* Dark/Light toggle */}
+            <IconButton
+              onClick={modeChange}
+              sx={{
+                color: mode === "dark" ? "#fff" : "#1D2452",
+              }}
+            >
+              {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
+            </IconButton>
+
+            {/* Menu icon */}
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerToggle}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
 
@@ -226,7 +240,7 @@ export default function Navigation({ parentToChild, modeChange }) {
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width: 160,
             },
           }}
         >

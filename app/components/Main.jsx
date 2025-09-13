@@ -68,10 +68,10 @@ export default function Main({ mode }) {
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 1 }}
               >
-                <h1 className="text-[clamp(2rem,6vw,4rem)] font-bold leading-tight text-white" style={{ color: '#F7931E' }}>
+                <h1 className="text-[clamp(2rem,6vw,4rem)] font-bold leading-tight  mt-15" style={{ color: '#F7931E' }}>
                   Welcome to OmniReach
                 </h1>
-                <p className="text-l mt-2">
+                <p className="text-l">
                   At Omnireach Technology, we offer Contract, Full-Time and Part-Time services for a wide range of industries.
                 </p>
 

@@ -9,8 +9,8 @@ const lottieStyle = {
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  // left: "50%",
-  // transform: "translateX(-50%)",
+  left: "50%",
+  transform: "translateX(-50%)",
 };
 
 const labels = [

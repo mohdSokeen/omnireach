@@ -20,7 +20,6 @@ export default function Contact() {
   const [mounted, setMounted] = useState(false);
 
   const [nameError, setNameError] = useState(false);
-  const [resumeError, setResumeError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [messageError, setMessageError] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState('success');
@@ -28,12 +27,17 @@ export default function Contact() {
   const form = useRef(null);
   const fileInputRef = useRef(null);
 
+  // ✅ Email & Phone Validators
+  const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  // This ignore little extention after dot like(.c, .i etc) take only big extension like(.com, .net, .org, .in)
+  // const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(value);
+  const validatePhone = (value) => /^\+?[0-9]{7,15}$/.test(value);
+
   useEffect(() => {
     if (feedback) {
       const timer = setTimeout(() => {
         setFeedback('');
       }, 5000);
-
       return () => clearTimeout(timer);
     }
   }, [feedback]);
@@ -46,13 +50,22 @@ export default function Contact() {
 
   const sendEmail = async (e) => {
     e.preventDefault();
-    setNameError(name === '');
-    setEmailError(email === '');
-    setMessageError(message === '');
-    setResumeError(!resume);
 
-    if (name && email && message && resume) {
+    // validate required fields
+    setNameError(name === '' ? "Please enter your name" : false);
+    setMessageError(message === '' ? "Please enter the message" : false);
+
+    if (email === '') {
+      setEmailError("Please enter your email or phone number");
+    } else if (!validateEmail(email) && !validatePhone(email)) {
+      setEmailError("Enter a valid email or phone number");
+    } else {
+      setEmailError(false);
+    }
+
+    if (name && message && email && !emailError) {
       try {
+        // helper function: convert file to base64
         const toBase64 = (file) =>
           new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -61,7 +74,15 @@ export default function Contact() {
             reader.onerror = (error) => reject(error);
           });
 
-        const resumeBase64 = await toBase64(resume);
+        // include resume only if selected
+        let resumeData = null;
+        if (resume) {
+          resumeData = {
+            name: resume.name,
+            type: resume.type,
+            data: await toBase64(resume),
+          };
+        }
 
         const res = await fetch("/api/send-email", {
           method: "POST",
@@ -70,11 +91,7 @@ export default function Contact() {
             name,
             email,
             message,
-            resume: {
-              name: resume.name,
-              type: resume.type,
-              data: resumeBase64,
-            },
+            resume: resumeData,
           }),
         });
 
@@ -104,7 +121,7 @@ export default function Contact() {
       <h2 className="text-3xl font-bold mb-6">Request a call back</h2>
       <p className="text-gray-200" style={{ color: '#F7931E' }}>
         Send us an email and we’ll get in touch shortly, or phone between 7:00 PM and 04:00 AM (IST) Monday to Friday.
-        <br/>we would be delighted to speak. 😊
+        <br />we would be delighted to speak. 😊
       </p>
 
       <Box
@@ -114,23 +131,30 @@ export default function Contact() {
         autoComplete="off"
         className="pt-5 w-full"
         onSubmit={sendEmail}
+        onKeyDown={(e) => {
+          // Block Enter only if NOT inside multiline message box
+          if (e.key === "Enter" && e.target.name !== "message") {
+            e.preventDefault();
+          }
+        }}
       >
+        {/* Name & Email/Phone Fields */}
         <div className="flex gap-[15px] pb-[15px]">
+          {/* Name */}
           <TextField
             required
             name="name"
             label="Your Name"
             placeholder="What's your name?"
             value={name}
-            onChange={(e) => setName(e.target.value)}
-            error={nameError}
-            helperText={nameError ? "Please enter your name" : ""}
-            InputProps={{
-              className: "bg-white text-black font-mono",
+            onChange={(e) => {
+              setName(e.target.value);
+              if (e.target.value.trim() !== "") setNameError(false);
             }}
-            InputLabelProps={{
-              className: "text-[1.2rem] font-sans",
-            }}
+            error={Boolean(nameError)}
+            helperText={nameError || ""}
+            InputProps={{ className: "bg-white text-black font-mono" }}
+            InputLabelProps={{ className: "text-[1.2rem] font-sans" }}
             sx={{
               "& input::placeholder": {
                 fontFamily: "monospace",
@@ -141,21 +165,29 @@ export default function Contact() {
             className="w-full"
           />
 
+          {/* Email or Phone */}
           <TextField
             required
             name="email"
             label="Your Email or Phone"
             placeholder="What's your email or phone?"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            error={emailError}
-            helperText={emailError ? "Please enter your email" : ""}
-            InputProps={{
-              className: "bg-white text-black font-mono",
+            onChange={(e) => {
+              const value = e.target.value.trim();
+              setEmail(value);
+
+              if (value === "") {
+                setEmailError("Please enter your email or phone number");
+              } else if (!validateEmail(value) && !validatePhone(value)) {
+                setEmailError("Enter a valid email or phone number");
+              } else {
+                setEmailError(false);
+              }
             }}
-            InputLabelProps={{
-              className: "text-[1.2rem] font-sans",
-            }}
+            error={Boolean(emailError)}
+            helperText={emailError || ""}
+            InputProps={{ className: "bg-white text-black font-mono" }}
+            InputLabelProps={{ className: "text-[1.2rem] font-sans" }}
             sx={{
               "& input::placeholder": {
                 fontFamily: "monospace",
@@ -167,6 +199,7 @@ export default function Contact() {
           />
         </div>
 
+        {/* Message */}
         <TextField
           required
           name="message"
@@ -175,15 +208,14 @@ export default function Contact() {
           multiline
           rows={10}
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          error={messageError}
-          helperText={messageError ? "Please enter the message" : ""}
-          InputProps={{
-            className: "bg-white text-black font-mono",
+          onChange={(e) => {
+            setMessage(e.target.value);
+            if (e.target.value.trim() !== "") setMessageError(false);
           }}
-          InputLabelProps={{
-            className: "text-[1.2rem] font-sans",
-          }}
+          error={Boolean(messageError)}
+          helperText={messageError || ""}
+          InputProps={{ className: "bg-white text-black font-mono" }}
+          InputLabelProps={{ className: "text-[1.2rem] font-sans" }}
           sx={{
             "& textarea::placeholder": {
               fontFamily: "monospace",
@@ -194,8 +226,8 @@ export default function Contact() {
           className="w-full mb-[5px]"
         />
 
+        {/* Resume Upload (Optional) */}
         <TextField
-          required
           type="file"
           name="resume"
           label="Upload Resume (PDF, DOC, DOCX)"
@@ -236,8 +268,6 @@ export default function Contact() {
           }}
           className="w-[50%] float-left"
           onChange={(e) => setResume(e.target.files[0])}
-          error={resumeError}
-          helperText={resumeError ? 'Please select resume' : ''}
           InputProps={{
             endAdornment: resume ? (
               <IconButton
@@ -250,12 +280,14 @@ export default function Contact() {
                 size="small"
                 sx={{ ml: 1 }}
               >
-                <ClearIcon fontSize="small" sx={{ color: "#F7931E" }} />
+                {/* 🔴 Cross icon is red */}
+                <ClearIcon fontSize="small" sx={{ color: "red" }} />
               </IconButton>
             ) : null,
           }}
         />
 
+        {/* Submit */}
         <Button
           type="submit"
           variant="contained"
@@ -274,6 +306,7 @@ export default function Contact() {
           Send
         </Button>
 
+        {/* Snackbar Feedback */}
         {feedback && (
           <Snackbar
             open={Boolean(feedback)}
