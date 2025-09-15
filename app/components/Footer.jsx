@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="mt-8">
 
       </div>
-      <div className="flex flex-col md:flex-row flex-wrap justify-between items-start max-w-[1200px] mx-auto px-5 gap-8">
+      <div className="flex flex-col md:flex-row flex-wrap justify-between items-start max-w-[1100px] mx-auto px-5 gap-8">
         {/* Column 1: Logo */}
         <div className="flex-1 min-w-[200px] text-center md:text-left mt-[-35px]">
           <img
@@ -87,7 +87,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <p className="text-center mt-6 text-sm w-full">
+        <p className="text-center mt-5 text-sm w-full">
           &copy; {new Date().getFullYear()} <span className="font-semibold">Omnireach Technology</span>.
           All rights reserved.
         </p>

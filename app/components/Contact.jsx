@@ -10,6 +10,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import ClearIcon from "@mui/icons-material/Clear";
 import IconButton from "@mui/material/IconButton";
 import React, { useRef, useState, useEffect } from 'react';
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Contact() {
   const [name, setName] = useState('');
@@ -18,6 +19,7 @@ export default function Contact() {
   const [message, setMessage] = useState('');
   const [feedback, setFeedback] = useState('');
   const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -29,8 +31,6 @@ export default function Contact() {
 
   // ✅ Email & Phone Validators
   const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  // This ignore little extention after dot like(.c, .i etc) take only big extension like(.com, .net, .org, .in)
-  // const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(value);
   const validatePhone = (value) => /^\+?[0-9]{7,15}$/.test(value);
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export default function Contact() {
 
   const sendEmail = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // validate required fields
     setNameError(name === '' ? "Please enter your name" : false);
@@ -74,7 +75,6 @@ export default function Contact() {
             reader.onerror = (error) => reject(error);
           });
 
-        // include resume only if selected
         let resumeData = null;
         if (resume) {
           resumeData = {
@@ -112,7 +112,11 @@ export default function Contact() {
       } catch (error) {
         setFeedback("Error sending mail.");
         setAlertSeverity("error");
+      } finally {
+        setLoading(false);
       }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -132,7 +136,6 @@ export default function Contact() {
         className="pt-5 w-full"
         onSubmit={sendEmail}
         onKeyDown={(e) => {
-          // Block Enter only if NOT inside multiline message box
           if (e.key === "Enter" && e.target.name !== "message") {
             e.preventDefault();
           }
@@ -140,7 +143,6 @@ export default function Contact() {
       >
         {/* Name & Email/Phone Fields */}
         <div className="flex gap-[15px] pb-[15px]">
-          {/* Name */}
           <TextField
             required
             name="name"
@@ -163,9 +165,9 @@ export default function Contact() {
               },
             }}
             className="w-full"
+            disabled={loading}
           />
 
-          {/* Email or Phone */}
           <TextField
             required
             name="email"
@@ -196,10 +198,10 @@ export default function Contact() {
               },
             }}
             className="w-full"
+            disabled={loading}
           />
         </div>
 
-        {/* Message */}
         <TextField
           required
           name="message"
@@ -224,9 +226,9 @@ export default function Contact() {
             },
           }}
           className="w-full mb-[5px]"
+          disabled={loading}
         />
 
-        {/* Resume Upload (Optional) */}
         <TextField
           type="file"
           name="resume"
@@ -268,6 +270,7 @@ export default function Contact() {
           }}
           className="w-[50%] float-left"
           onChange={(e) => setResume(e.target.files[0])}
+          disabled={loading}
           InputProps={{
             endAdornment: resume ? (
               <IconButton
@@ -279,34 +282,45 @@ export default function Contact() {
                 }}
                 size="small"
                 sx={{ ml: 1 }}
+                disabled={loading}
               >
-                {/* 🔴 Cross icon is red */}
                 <ClearIcon fontSize="small" sx={{ color: "red" }} />
               </IconButton>
             ) : null,
           }}
         />
 
-        {/* Submit */}
+        {/* ✅ Spinner inside Button */}
         <Button
           type="submit"
           variant="contained"
-          endIcon={<SendIcon className="text-base align-middle mr-1.5" />}
           className="float-right"
+          disabled={loading}
           sx={{
             marginTop: '15px',
             backgroundColor: 'white',
             color: '#050f0b',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
             '&:hover': {
               backgroundColor: '#F7931E',
               color: 'white',
             },
           }}
         >
-          Send
+          {loading ? (
+            <>
+              <CircularProgress size={20} color="inherit" /> Sending...
+            </>
+          ) : (
+            <>
+              Send <SendIcon className="text-base align-middle mr-1.5" />
+            </>
+          )}
         </Button>
 
-        {/* Snackbar Feedback */}
         {feedback && (
           <Snackbar
             open={Boolean(feedback)}
