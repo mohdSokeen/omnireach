@@ -25,13 +25,26 @@ export default function Navigation({ parentToChild, modeChange }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleScroll = (e, id) => {
-    e.preventDefault();
+    e.preventDefault(); // ✅ stop instant jump
+
     const element = document.getElementById(id);
     if (element) {
       const yOffset = -NAVBAR_HEIGHT;
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
-      setMobileOpen(false); // Close mobile menu after click
+      const y =
+        element.getBoundingClientRect().top +
+        window.pageYOffset +
+        yOffset;
+
+      // ✅ smooth animated scroll
+      window.scrollTo({
+        top: y,
+        behavior: "smooth",
+      });
+
+      // ✅ update URL hash without reload
+      window.history.pushState(null, "", `#${id}`);
+
+      setMobileOpen(false);
     }
   };
 
@@ -69,23 +82,32 @@ export default function Navigation({ parentToChild, modeChange }) {
                   key={label}
                   href={link}
                   onClick={(e) => handleScroll(e, id)}
-                  className="px-3 py-2 select-none outline-none font-medium"
+                  className="px-3 py-2 font-medium"
                 >
                   {label}
                 </a>
               );
             })}
-            <IconButton onClick={modeChange} sx={{ color: mode === "dark" ? "#fff" : "#1D2452", ml: 1 }}>
+            <IconButton
+              onClick={modeChange}
+              sx={{ color: mode === "dark" ? "#fff" : "#1D2452", ml: 1 }}
+            >
               {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
             </IconButton>
           </Box>
 
           {/* Mobile Menu Button */}
           <Box sx={{ display: { xs: "flex", sm: "none" }, marginLeft: "auto" }}>
-            <IconButton onClick={modeChange} sx={{ color: mode === "dark" ? "#fff" : "#1D2452" }}>
+            <IconButton
+              onClick={modeChange}
+              sx={{ color: mode === "dark" ? "#fff" : "#1D2452" }}
+            >
               {mode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
             </IconButton>
-            <IconButton onClick={() => setMobileOpen(prev => !prev)} sx={{ color: mode === "dark" ? "#fff" : "#1D2452" }}>
+            <IconButton
+              onClick={() => setMobileOpen((prev) => !prev)}
+              sx={{ color: mode === "dark" ? "#fff" : "#1D2452" }}
+            >
               {mobileOpen ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
           </Box>
@@ -122,7 +144,7 @@ export default function Navigation({ parentToChild, modeChange }) {
         )}
       </AppBar>
 
-      {/* Spacer to prevent content being hidden behind navbar */}
+      {/* Spacer */}
       <Box sx={{ height: NAVBAR_HEIGHT }} />
     </Box>
   );

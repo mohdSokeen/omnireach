@@ -44,7 +44,7 @@ export default function Main({ mode }) {
   return (
     <div className="w-full">
       <div
-        className="relative flex flex-row justify-start items-center w-full px-[15%] min-h-[680px] bg-center bg-cover bg-fixed max-md:block max-md:px-0 max-md:pt-[160px]"
+        className="relative flex flex-row justify-start items-center w-full px-[15%] min-h-[520px] bg-center bg-cover bg-fixed max-md:block max-md:px-0 max-md:pt-[160px]"
         style={{ backgroundImage: "none" }}
       >
         {/* Background with animation */}
