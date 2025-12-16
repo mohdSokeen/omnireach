@@ -121,7 +121,7 @@ export default function Main({ mode }) {
                     <LinkedInIcon className="!text-[#0A66C2] group-hover:!text-white !text-[30px]" />
                   </a>
                   <a
-                    href="hr@omnireachtech.com"
+                    href="https://x.com/omnireachtech"
                     target="_blank"
                     rel="noreferrer"
                     className="group flex items-center justify-center w-12 h-12 rounded-full bg-white/90 shadow-md hover:bg-black transition duration-300"
