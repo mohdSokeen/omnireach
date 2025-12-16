@@ -3,7 +3,7 @@ import ImageSlider from "./ImageSlider";
 
 export default function About() {
   return (
-    <section id="about" className="flex flex-col items-center px-6 sm:px-10 py-8">
+    <section id="about-us" className="flex flex-col items-center px-6 sm:px-10 py-8">
       <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-5 text-center">
         About Us
       </h2>
